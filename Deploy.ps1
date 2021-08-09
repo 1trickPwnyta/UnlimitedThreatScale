@@ -1,6 +1,6 @@
 $path = "D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\UnlimitedThreatScale"
 
-Copy-Item "$path\About\PublishedFileId.txt" ..\About
+Copy-Item "$path\About\PublishedFileId.txt" "$PSScriptRoot\About"
 Remove-Item -Recurse "$path\*"
 mkdir $path
 @(
