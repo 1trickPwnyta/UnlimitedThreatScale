@@ -28,6 +28,8 @@ namespace UnlimitedThreatScale
                 ThreatPointsCap = Mathf.Max(35, ThreatPointsCap);
             }
 
+            listingStandard.Label("UnlimitedThreatScale_RestartWarning".Translate());
+
             listingStandard.End();
         }
 

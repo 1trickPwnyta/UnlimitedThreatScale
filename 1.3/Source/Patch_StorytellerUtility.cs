@@ -18,11 +18,18 @@ namespace UnlimitedThreatScale
             bool shouldPatchCall = false;
             foreach (CodeInstruction instruction in instructions)
             {
-                // Find instruction to store 10000 (hard-coded vanilla threat points cap) and remove it
+                // Find instruction to store 10000 (hard-coded vanilla threat points cap) and remove it (uncapped) or replace it (capped)
                 if (instruction.opcode == OpCodes.Ldc_R4 && (instruction.operand as float?).ToString() == "10000")
                 {
-                    shouldPatchCall = true;
-                    continue;
+                    if (UnlimitedThreatScaleSettings.UncapThreatPoints)
+                    {
+                        shouldPatchCall = true;
+                        continue;
+                    }
+                    else
+                    {
+                        instruction.operand = (float)UnlimitedThreatScaleSettings.ThreatPointsCap;
+                    }
                 }
 
                 // Find subsequent call to Mathf.Clamp and replace it with Mathf.Max (threat points minimum of 35 has already been stored)
@@ -33,14 +40,7 @@ namespace UnlimitedThreatScale
                 }
 
                 yield return instruction;
-            }
-        }
-
-        public static void Postfix(ref float __result)
-        {
-            if (!UnlimitedThreatScaleSettings.UncapThreatPoints)
-            {
-                __result = Mathf.Min(__result, UnlimitedThreatScaleSettings.ThreatPointsCap);
+                Debug.Log(instruction.opcode + " " + instruction.operand);
             }
         }
     }
