@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
 	<name>Unlimited Threat Scale</name>
-	<author>1trickPonyta</author>
+	<author>1trickPwnyta</author>
 	<packageId>unlimitedthreatscale.1trickPonyta</packageId>
 	<supportedVersions>
 		<li>1.2</li>
@@ -14,10 +14,12 @@ Use at your own risk though because there are no checks and balances and your ga
 
 Speaking of threat points, if you're curious about how many threat points the game is using for each raid, check out my other mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2562730174
 
+Note: This version of the mod is compatible with the Visible Raid Points mod's threat points breakdown feature, but as a result, any changes to this mod's settings require a game restart in order to take effect. You will also need to download the compatibility version of Visible Raid Points from the "uts-compatibility" branch on GitHub: https://github.com/1trickPwnyta/VisibleRaidPoints/tree/uts-compatibility
+
 === Updates ===
 08/09/2021: Added support for version 1.2.
 	</description>
-	<url>https://github.com/1trickPonyta/UnlimitedThreatScale</url>
+	<url>https://github.com/1trickPwnyta/UnlimitedThreatScale</url>
 	<modDependencies>
 		<li>
 			<packageId>brrainz.harmony</packageId>
