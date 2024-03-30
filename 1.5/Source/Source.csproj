@@ -54,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Debug.cs" />
+    <Compile Include="Patch_PawnGroupMaker.cs" />
     <Compile Include="Patch_StorytellerUtility.cs" />
+    <Compile Include="UnlimitedThreatScaleRefs.cs" />
     <Compile Include="UnlimitedThreatScaleMod.cs" />
     <Compile Include="Patch_StorytellerUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

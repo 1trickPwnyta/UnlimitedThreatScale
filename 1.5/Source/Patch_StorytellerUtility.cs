@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using RimWorld;
 using HarmonyLib;
@@ -13,34 +12,37 @@ namespace UnlimitedThreatScale
     [HarmonyPatch("DefaultThreatPointsNow")]
     public static class Patch_StorytellerUtility_DefaultThreatPointsNow
     {
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
         {
-            bool shouldPatchCall = false;
+            bool foundThreatPointsCap = false;
+            bool foundRet = false;
+            Label postThreatPointsCapApplied = il.DefineLabel();
             foreach (CodeInstruction instruction in instructions)
             {
-                // Find instruction to store 10000 (hard-coded vanilla threat points cap) and remove it
-                if (instruction.opcode == OpCodes.Ldc_R4 && (instruction.operand as float?).ToString() == "10000")
+                // Find instruction to store 10000 (hard-coded vanilla threat points cap) and add settings check to either skip the clamp or use a value other than 10000
+                if (!foundThreatPointsCap && instruction.opcode == OpCodes.Ldc_R4 && (instruction.operand as float?).ToString() == "10000")
                 {
-                    shouldPatchCall = true;
+                    yield return new CodeInstruction(OpCodes.Ldsfld, UnlimitedThreatScaleRefs.f_UnlimitedThreatScaleSettings_UncapThreatPoints);
+                    yield return new CodeInstruction(OpCodes.Brtrue, postThreatPointsCapApplied);
+                    yield return new CodeInstruction(OpCodes.Ldsfld, UnlimitedThreatScaleRefs.f_UnlimitedThreatScaleSettings_ThreatPointsCap);
+                    yield return new CodeInstruction(OpCodes.Conv_R4);
+                    foundThreatPointsCap = true;
                     continue;
                 }
 
-                // Find subsequent call to Mathf.Clamp and replace it with Mathf.Max (threat points minimum of 35 has already been stored)
-                if (instruction.opcode == OpCodes.Call && (MethodInfo) instruction.operand == SymbolExtensions.GetMethodInfo(() => Mathf.Clamp(0f, 0f, 0f)) && shouldPatchCall)
+                // Find return instruction and add a max function to calculate uncapped threat points if above code directs here
+                if (foundThreatPointsCap && !foundRet && instruction.opcode == OpCodes.Ret)
                 {
-                    instruction.operand = SymbolExtensions.GetMethodInfo(() => Mathf.Max(0f, 0f));
-                    shouldPatchCall = false;
+                    yield return instruction;
+                    CodeInstruction maxInstruction = new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(() => Mathf.Max(0f, 0f)));
+                    maxInstruction.labels.Add(postThreatPointsCapApplied);
+                    yield return maxInstruction;
+                    yield return new CodeInstruction(OpCodes.Ret);
+                    foundRet = true;
+                    continue;
                 }
 
                 yield return instruction;
-            }
-        }
-
-        public static void Postfix(ref float __result)
-        {
-            if (!UnlimitedThreatScaleSettings.UncapThreatPoints)
-            {
-                __result = Mathf.Min(__result, UnlimitedThreatScaleSettings.ThreatPointsCap);
             }
         }
     }
