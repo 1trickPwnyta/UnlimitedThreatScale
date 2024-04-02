@@ -10,9 +10,11 @@
 		<li>1.5</li>
 	</supportedVersions>
 	<description>
-Allows you to set the threat scale, in theory, as high as you want. How high will it let you go? I don't know. Technically there is still a limit of 1000000000% because numbers stored in computers must have a limit, and that number would break the game anyway. You can also increase the threat points cap (the game normally caps at 10,000) or even uncap it entirely.
+Allows you to set the threat scale, in theory, as high as you want. How high will it let you go? I don't know. Technically there is still a limit of 1000000000% because numbers stored in computers must have a limit, and that number would break the game anyway. You can also increase the threat points cap for the base threat points calculation (the game normally caps at 10,000) or even uncap it entirely.
 
 Use at your own risk though because there are no checks and balances and your game will behave accordingly. If you decide to uncap threat points and start a game with 1M% threat scale, don't be surprised if your game crashes before anyone has a chance to kill you.
+
+Note: Certain events in the game have their own individual caps on threat points (for example, Too deep: infestations have a cap of 1,000 points). This mod does not change or remove those caps.
 
 Speaking of threat points, if you're curious about how many threat points the game is using for each raid, check out my other mod, Visible Raid Points: https://steamcommunity.com/sharedfiles/filedetails/?id=2562730174 (which is fully compatible with this mod as of version 1.5+ of RimWorld).
 
