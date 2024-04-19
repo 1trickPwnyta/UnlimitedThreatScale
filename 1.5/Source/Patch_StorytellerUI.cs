@@ -1,13 +1,10 @@
-﻿using RimWorld;
-using Verse;
-using HarmonyLib;
+﻿using Verse;
 
 namespace UnlimitedThreatScale
 {
     // Patches the vanilla custom difficulty slider to be a free-entry text box instead
 
-    [HarmonyPatch(typeof(StorytellerUI))]
-    [HarmonyPatch("DrawCustomDifficultySlider")]
+    // Patched manually in mod constructor
     public static class Patch_StorytellerUI_DrawCustomDifficultySlider
     {
         public static bool Prefix(ref Listing_Standard listing, ref string optionName, ref float value)
@@ -18,7 +15,7 @@ namespace UnlimitedThreatScale
                 UnlimitedThreatScaleSettings.DoThreatScaleWidget(ref listing, ref value);
                 return false;
 			}
-
+            
             return true;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Verse;
 using HarmonyLib;
+using RimWorld;
 
 namespace UnlimitedThreatScale
 {
@@ -17,6 +18,7 @@ namespace UnlimitedThreatScale
 
             var harmony = new Harmony(PACKAGE_ID);
             harmony.PatchAll();
+            harmony.Patch(AccessTools.Method(typeof(StorytellerUI), "DrawCustomDifficultySlider", new[] { typeof(Listing_Standard), typeof(string), typeof(float).MakeByRefType(), typeof(ToStringStyle), typeof(ToStringNumberSense), typeof(float), typeof(float), typeof(float), typeof(bool), typeof(float) }), AccessTools.Method(typeof(Patch_StorytellerUI_DrawCustomDifficultySlider), nameof(Patch_StorytellerUI_DrawCustomDifficultySlider.Prefix)));
 
             Log.Message($"[{PACKAGE_NAME}] Loaded.");
         }
