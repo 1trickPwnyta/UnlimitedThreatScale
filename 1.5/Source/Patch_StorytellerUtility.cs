@@ -3,6 +3,7 @@ using System.Reflection.Emit;
 using RimWorld;
 using HarmonyLib;
 using UnityEngine;
+using System.Reflection;
 
 namespace UnlimitedThreatScale
 {
@@ -19,6 +20,24 @@ namespace UnlimitedThreatScale
             Label postThreatPointsCapApplied = il.DefineLabel();
             foreach (CodeInstruction instruction in instructions)
             {
+                // Replace vanilla wealth curves with modded ones
+                if (instruction.opcode == OpCodes.Ldsfld && (FieldInfo)instruction.operand == UnlimitedThreatScaleRefs.f_StorytellerUtility_PointsPerWealthCurve)
+                {
+                    instruction.operand = UnlimitedThreatScaleRefs.f_UncappedWealthCurve_PointsPerWealthCurve;
+                }
+                if (instruction.opcode == OpCodes.Ldsfld && (FieldInfo)instruction.operand == UnlimitedThreatScaleRefs.f_StorytellerUtility_PointsPerColonistByWealthCurve)
+                {
+                    instruction.operand = UnlimitedThreatScaleRefs.f_UncappedWealthCurve_PointsPerColonistByWealthCurve;
+                }
+                if (instruction.opcode == OpCodes.Ldsfld && (FieldInfo)instruction.operand == UnlimitedThreatScaleRefs.f_StorytellerUtility_PointsFactorForColonyMechsCurve)
+                {
+                    instruction.operand = UnlimitedThreatScaleRefs.f_UncappedWealthCurve_PointsFactorForColonyMechsCurve;
+                }
+                if (instruction.opcode == OpCodes.Ldsfld && (FieldInfo)instruction.operand == UnlimitedThreatScaleRefs.f_StorytellerUtility_PointsFactorForColonyMutantsCurve)
+                {
+                    instruction.operand = UnlimitedThreatScaleRefs.f_UncappedWealthCurve_PointsFactorForColonyMutantsCurve;
+                }
+
                 // Find instruction to store 10000 (hard-coded vanilla threat points cap) and add settings check to either skip the clamp or use a value other than 10000
                 if (!foundThreatPointsCap && instruction.opcode == OpCodes.Ldc_R4 && (instruction.operand as float?).ToString() == "10000")
                 {

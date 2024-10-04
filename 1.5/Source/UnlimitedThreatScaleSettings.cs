@@ -7,6 +7,7 @@ namespace UnlimitedThreatScale
     {
         public static bool UncapThreatPoints = false;
         public static int ThreatPointsCap = 10000;  // Default same as vanilla
+        public static bool UncapWealthCurves = false;
 
         public static void DoSettingsWindowContents(Rect inRect)
         {
@@ -27,6 +28,8 @@ namespace UnlimitedThreatScale
                 listingStandard.IntEntry(ref ThreatPointsCap, ref buffer, 100);
                 ThreatPointsCap = Mathf.Max(35, ThreatPointsCap);
             }
+
+            listingStandard.CheckboxLabeled("UnlimitedThreatScale_UncapWealthCurves".Translate(), ref UncapWealthCurves, "UnlimitedThreatScale_UncapWealthCurvesDesc".Translate());
 
             listingStandard.End();
         }
@@ -49,6 +52,7 @@ namespace UnlimitedThreatScale
         {
             Scribe_Values.Look(ref UncapThreatPoints, "UncapThreatPoints");
             Scribe_Values.Look(ref ThreatPointsCap, "ThreatPointsCap");
+            Scribe_Values.Look(ref UncapWealthCurves, "UncapWealthCurves");
         }
     }
 }

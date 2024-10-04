@@ -26,17 +26,17 @@
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Assemblies\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="1.5">
-      <HintPath>..\..\..\..\RimWorld\RimWorld Code 1.5\1.5.dll</HintPath>
+      <HintPath>..\..\..\..\..\RimWorld\RimWorld Code 1.5\1.5.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="Debug.cs" />
     <Compile Include="Patch_PawnGroupMaker.cs" />
+    <Compile Include="Patch_SimpleCurve.cs" />
     <Compile Include="Patch_StorytellerUtility.cs" />
+    <Compile Include="UncappedWealthCurve.cs" />
     <Compile Include="UnlimitedThreatScaleRefs.cs" />
     <Compile Include="UnlimitedThreatScaleMod.cs" />
     <Compile Include="Patch_StorytellerUI.cs" />

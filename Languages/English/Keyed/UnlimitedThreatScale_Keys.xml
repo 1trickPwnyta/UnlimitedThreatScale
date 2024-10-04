@@ -2,4 +2,6 @@
 <LanguageData>
 	<UnlimitedThreatScale_UncapThreatPoints>Uncap threat points</UnlimitedThreatScale_UncapThreatPoints>
 	<UnlimitedThreatScale_ThreatPointsCap>Threat points cap (vanilla caps at 10,000)</UnlimitedThreatScale_ThreatPointsCap>
+	<UnlimitedThreatScale_UncapWealthCurves>Uncap wealth curves</UnlimitedThreatScale_UncapWealthCurves>
+	<UnlimitedThreatScale_UncapWealthCurvesDesc>See mod description for more information!</UnlimitedThreatScale_UncapWealthCurvesDesc>
 </LanguageData>
