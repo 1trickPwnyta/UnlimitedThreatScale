@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace UnlimitedThreatScale
@@ -45,6 +46,7 @@ namespace UnlimitedThreatScale
             if (num2 != num)
             {
                 value = GenMath.RoundTo(num / 100f, 0.01f);
+                Find.Storyteller.difficultyDef = DefDatabase<DifficultyDef>.GetNamed("Custom");
             }
         }
 
